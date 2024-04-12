@@ -38,7 +38,7 @@ extension ScreenConfiguration {
     }
     
     var mainScreen: DestinationStep<VCMain1, Any?> {
-        StepAssembly(finder: ClassFinder(options: .currentAllStack), factory: ClassFactory())
+        StepAssembly(finder: ClassFinder(options: .fullStack), factory: ClassFactory())
             .using(GeneralAction.replaceRoot())
             .from(tabBarScreen)
             .assemble()
