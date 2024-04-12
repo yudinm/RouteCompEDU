@@ -1,0 +1,16 @@
+PODS:
+  - RouteComposer (2.10.4)
+
+DEPENDENCIES:
+  - RouteComposer
+
+SPEC REPOS:
+  trunk:
+    - RouteComposer
+
+SPEC CHECKSUMS:
+  RouteComposer: 5ec7fa4e6074bcde2317750e6074675fd0075096
+
+PODFILE CHECKSUM: fb39dd070489cfc4b3ec4db6ad80258dbcd5fa1d
+
+COCOAPODS: 1.12.1
