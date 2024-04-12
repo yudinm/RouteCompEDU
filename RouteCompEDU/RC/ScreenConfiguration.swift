@@ -26,7 +26,7 @@ extension ScreenConfiguration {
         StepAssembly(finder:
                         ClassFinder<TabBarController, Any?>(options: .current, startingPoint: .root),
                      factory: CompleteFactoryAssembly(factory: TabBarFactory<TabBarController, Any?>())
-            .with(MainConfiguration.createVC1WithNavigationFactory(), using: TabBarController.add())
+             .with(MainConfiguration.createVC1WithNavigationFactory(), using: TabBarController.add())
              .with(MainConfiguration.createVC2WithNavigationFactory(), using: TabBarController.add())
             .assemble()
         )
@@ -43,7 +43,7 @@ extension ScreenConfiguration {
     }
     
     var secondScreen: DestinationStep<VCMain2, Any?> {
-        StepAssembly(finder: ClassFinder(options: .currentVisibleOnly), factory: ClassFactory())
+        StepAssembly(finder: ClassFinder(options: .currentAllStack), factory: ClassFactory())
             .using(GeneralAction.replaceRoot())
             .from(tabBarScreen)
             .assemble()

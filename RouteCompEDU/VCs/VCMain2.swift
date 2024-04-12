@@ -11,18 +11,20 @@ import RouteComposer
 class VCMain2: UIViewController {
     
     var bt: UIButton = {
+        let settings: CustomButton.Settings = .pushVCChild2
         let bt = UIButton()
-        bt.setTitle("Push child `vc-child-2` from main screen", for: .normal)
+        bt.setTitle(settings.title(), for: .normal)
         bt.translatesAutoresizingMaskIntoConstraints = false
         bt.backgroundColor = .gray
+        bt.tag = settings.rawValue
 
         return bt
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green.withAlphaComponent(0.2)
-        title = "Second screen"
+        view.backgroundColor = .red.withAlphaComponent(0.2)
+        title = "vc-second"
         
         configureButtons()
     }

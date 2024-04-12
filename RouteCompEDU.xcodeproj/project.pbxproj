@@ -13,6 +13,7 @@
 		861756012BC9835E009E2D43 /* TabBarFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861756002BC9835E009E2D43 /* TabBarFactory.swift */; };
 		861756042BC985A2009E2D43 /* VCChild1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861756032BC985A2009E2D43 /* VCChild1.swift */; };
 		861756062BC9C6C2009E2D43 /* VCChild2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861756052BC9C6C2009E2D43 /* VCChild2.swift */; };
+		861756082BC9CBBE009E2D43 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861756072BC9CBBE009E2D43 /* CustomButton.swift */; };
 		86DEC0552AAA346000CDD90C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DEC0542AAA346000CDD90C /* AppDelegate.swift */; };
 		86DEC0572AAA346000CDD90C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DEC0562AAA346000CDD90C /* SceneDelegate.swift */; };
 		86DEC05C2AAA346000CDD90C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86DEC05A2AAA346000CDD90C /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 		861756002BC9835E009E2D43 /* TabBarFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarFactory.swift; sourceTree = "<group>"; };
 		861756032BC985A2009E2D43 /* VCChild1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCChild1.swift; sourceTree = "<group>"; };
 		861756052BC9C6C2009E2D43 /* VCChild2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCChild2.swift; sourceTree = "<group>"; };
+		861756072BC9CBBE009E2D43 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		86DEC0512AAA346000CDD90C /* RouteCompEDU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RouteCompEDU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86DEC0542AAA346000CDD90C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		86DEC0562AAA346000CDD90C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,11 +124,12 @@
 		86DEC0682AAA346700CDD90C /* VCs */ = {
 			isa = PBXGroup;
 			children = (
-				86DEC0692AAA348600CDD90C /* VCMain1.swift */,
-				86DEC06B2AAA349400CDD90C /* VCMain2.swift */,
+				861756072BC9CBBE009E2D43 /* CustomButton.swift */,
 				861756022BC98390009E2D43 /* Main */,
 				861756032BC985A2009E2D43 /* VCChild1.swift */,
 				861756052BC9C6C2009E2D43 /* VCChild2.swift */,
+				86DEC0692AAA348600CDD90C /* VCMain1.swift */,
+				86DEC06B2AAA349400CDD90C /* VCMain2.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				861755FD2BC982A0009E2D43 /* TabBarController.swift in Sources */,
 				861756062BC9C6C2009E2D43 /* VCChild2.swift in Sources */,
 				86DEC06A2AAA348600CDD90C /* VCMain1.swift in Sources */,
+				861756082BC9CBBE009E2D43 /* CustomButton.swift in Sources */,
 				861756042BC985A2009E2D43 /* VCChild1.swift in Sources */,
 				861756012BC9835E009E2D43 /* TabBarFactory.swift in Sources */,
 				86DEC06F2AAA39E900CDD90C /* ScreenConfiguration.swift in Sources */,

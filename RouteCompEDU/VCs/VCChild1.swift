@@ -6,13 +6,62 @@
 //
 
 import UIKit
+import RouteComposer
 
 class VCChild1: UIViewController {
+    
+    let buttons: [CustomButton] = [
+        .init(settings: .openVCMain1),
+        .init(settings: .openVCMain2),
+        .init(settings: .pushVCChild1),
+        .init(settings: .pushVCChild2),
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .orange.withAlphaComponent(0.9)
         title = "vc-child-1"
+
+        configureButtons()
     }
     
+}
+
+extension VCChild1 {
+    func configureButtons() {
+        var lastButton: CustomButton? = nil
+        buttons.forEach { button in
+            view.addSubview(button)
+            if (lastButton == nil) {
+                NSLayoutConstraint.activate([
+                    button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+                ])
+            } else {
+                NSLayoutConstraint.activate([
+                    button.topAnchor.constraint(equalTo: lastButton!.bottomAnchor, constant: 8)
+                ])
+            }
+            NSLayoutConstraint.activate([
+                button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            ])
+            button.addTarget(self, action: #selector(btTapped), for: .touchUpInside)
+            lastButton = button
+        }
+    }
+}
+
+extension VCChild1 {
+    @objc func btTapped(sender: CustomButton) {
+        let settings = sender.settings
+        switch settings {
+        case .openVCMain1:
+            try? DefaultRouter().navigate(to: ConfigurationHolder.configuration.mainScreen, with: nil)
+        case .openVCMain2:
+            try? DefaultRouter().navigate(to: ConfigurationHolder.configuration.secondScreen, with: nil)
+        case .pushVCChild1:
+            try? DefaultRouter().navigate(to: ConfigurationHolder.configuration.child1Screen, with: nil)
+        case .pushVCChild2:
+            try? DefaultRouter().navigate(to: ConfigurationHolder.configuration.child2Screen, with: nil)
+        }
+    }
 }
