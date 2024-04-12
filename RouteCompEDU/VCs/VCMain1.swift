@@ -15,6 +15,7 @@ class VCMain1: UIViewController {
         .init(settings: .openVCMain2),
         .init(settings: .pushVCChild1),
         .init(settings: .pushVCChild2),
+        .init(settings: .presentVCChild1),
     ]
     
     override func viewDidLoad() {
@@ -44,24 +45,8 @@ extension VCMain1 {
             NSLayoutConstraint.activate([
                 button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             ])
-            button.addTarget(self, action: #selector(btTapped), for: .touchUpInside)
+            button.addTarget(CustomButton.self, action: #selector(CustomButton.btTapped), for: .touchUpInside)
             lastButton = button
-        }
-    }
-}
-
-extension VCMain1 {
-    @objc func btTapped(sender: CustomButton) {
-        let settings = sender.settings
-        switch settings {
-        case .openVCMain1:
-            try? DefaultRouter().navigate(to: ConfigurationHolder.configuration.mainScreen, with: nil)
-        case .openVCMain2:
-            try? DefaultRouter().navigate(to: ConfigurationHolder.configuration.secondScreen, with: nil)
-        case .pushVCChild1:
-            try? DefaultRouter().navigate(to: ConfigurationHolder.configuration.child1Screen, with: nil)
-        case .pushVCChild2:
-            try? DefaultRouter().navigate(to: ConfigurationHolder.configuration.child2Screen, with: nil)
         }
     }
 }

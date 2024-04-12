@@ -17,6 +17,8 @@ protocol ScreenConfiguration {
     
     var child2Screen: DestinationStep<VCChild2, Any?> { get }
     
+    var child1ScreenModal: DestinationStep<VCChild1, Any?> { get }
+    
 }
 
 extension ScreenConfiguration {
@@ -62,6 +64,13 @@ extension ScreenConfiguration {
         .using(UINavigationController.push())
         .from(mainScreen.expectingContainer())
         .assemble()
+    }
+    
+    var child1ScreenModal: DestinationStep<VCChild1, Any?> {
+        StepAssembly(finder: ClassFinder<VCChild1, Any?>(),
+                     factory: ClassFactory())
+        .using(GeneralAction.presentModally())
+        .assemble(from: mainScreen)
     }
 
 }

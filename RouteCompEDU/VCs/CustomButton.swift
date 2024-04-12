@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RouteComposer
 
 class CustomButton: UIButton {
     enum Settings: Int {
@@ -13,6 +14,8 @@ class CustomButton: UIButton {
         case openVCMain2
         case pushVCChild1
         case pushVCChild2
+        case presentVCChild1
+        case dismiss
         
         func title() -> String {
             switch self {
@@ -24,11 +27,16 @@ class CustomButton: UIButton {
                 return "pushVCChild1"
             case .pushVCChild2:
                 return "pushVCChild2"
+            case .presentVCChild1:
+                return "presentVCChild1"
+            case .dismiss:
+                return "Dismiss"
             }
         }
     }
     
     let settings: Settings
+    var onTap: ((_ sender: CustomButton)->())?
     
     init(settings: Settings) {
         self.settings = settings
@@ -43,4 +51,24 @@ class CustomButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc static func btTapped(sender: CustomButton) {
+        let settings = sender.settings
+        let router = DefaultRouter()
+        let config = ConfigurationHolder.configuration
+        switch settings {
+        case .openVCMain1:
+            try? router.navigate(to: config.mainScreen, with: nil)
+        case .openVCMain2:
+            try? router.navigate(to: config.secondScreen, with: nil)
+        case .pushVCChild1:
+            try? router.navigate(to: config.child1Screen, with: nil)
+        case .pushVCChild2:
+            try? router.navigate(to: config.child2Screen, with: nil)
+        case .presentVCChild1:
+            try? router.navigate(to: config.child1ScreenModal, with: nil)
+        case .dismiss:
+            break
+        }
+        sender.onTap?(sender)
+    }
 }
