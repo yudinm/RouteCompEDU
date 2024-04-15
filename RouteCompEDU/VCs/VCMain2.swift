@@ -19,6 +19,7 @@ class VCMain2: UIViewController {
         .init(settings: .pushVCChild1FromCurrent),
         .init(settings: .pushVCChild2FromCurrent),
         .init(settings: .modalChild1ScreenFromCurrentWithNavigationController),
+        .init(settings: .modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2),
     ]
     
     override func viewDidLoad() {
@@ -42,14 +43,21 @@ extension VCMain2 {
                 ])
             } else {
                 NSLayoutConstraint.activate([
-                    button.topAnchor.constraint(equalTo: lastButton!.bottomAnchor, constant: 8)
+                    button.topAnchor.constraint(equalTo: lastButton!.bottomAnchor, constant: 8),
+                    button.heightAnchor.constraint(equalTo: lastButton!.heightAnchor),
                 ])
             }
             NSLayoutConstraint.activate([
                 button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                button.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+                
             ])
             button.addTarget(CustomButton.self, action: #selector(CustomButton.btTapped), for: .touchUpInside)
             lastButton = button
         }
+        
+        NSLayoutConstraint.activate([
+            lastButton!.bottomAnchor.constraint(greaterThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -88)
+        ])
     }
 }

@@ -24,6 +24,8 @@ protocol ScreenConfiguration {
     var pushVCChild2FromCurrent: DestinationStep<VCChild2, Any?> { get }
     
     var modalChild1ScreenFromCurrentWithNavigationController: DestinationStep<VCChild1, Any?> { get }
+    
+    var modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2: DestinationStep<VCChild1, Any?> { get }
 }
 
 extension ScreenConfiguration {
@@ -102,7 +104,16 @@ extension ScreenConfiguration {
         .using(UINavigationController.push())
         .from(NavigationControllerStep())
         .using(GeneralAction.presentModally())
-        .assemble(from: openTabMainScreen)
+        .assemble(from: GeneralStep.current())
+    }
+    
+    var modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2: DestinationStep<VCChild1, Any?> {
+        StepAssembly(finder: ClassFinder<VCChild1, Any?>(),
+                     factory: ClassFactory())
+        .using(UINavigationController.push())
+        .from(NavigationControllerStep())
+        .using(GeneralAction.presentModally())
+        .assemble(from: GeneralStep.current())
     }
 }
 

@@ -19,6 +19,7 @@ class CustomButton: UIButton {
         case pushVCChild1FromCurrent
         case pushVCChild2FromCurrent
         case modalChild1ScreenFromCurrentWithNavigationController
+        case modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2
         
         func title() -> String {
             switch self {
@@ -39,7 +40,9 @@ class CustomButton: UIButton {
             case .pushVCChild2FromCurrent:
                 return "pushVCChild2FromCurrent"
             case .modalChild1ScreenFromCurrentWithNavigationController:
-                return "modalChild1ScreenFromCurrentWithNavigationController"
+                return "modalChild1Screen From Current With NavigationController"
+            case .modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2:
+                return "modalChild1Screen From Current With NavigationController Then PushChild2"
             }
         }
     }
@@ -51,6 +54,7 @@ class CustomButton: UIButton {
         self.settings = settings
         super.init(frame: .zero)
         setTitle(settings.title(), for: .normal)
+        titleLabel?.numberOfLines = 0
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .gray
         tag = settings.rawValue
@@ -83,6 +87,8 @@ class CustomButton: UIButton {
             try? router.navigate(to: config.pushVCChild2FromCurrent, with: nil)
         case .modalChild1ScreenFromCurrentWithNavigationController:
             try? router.navigate(to: config.modalChild1ScreenFromCurrentWithNavigationController, with: nil)
+        case .modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2:
+            try? router.navigate(to: config.modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2, with: nil)
         }
         sender.onTap?(sender)
     }
