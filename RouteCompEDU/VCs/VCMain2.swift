@@ -11,7 +11,7 @@ import RouteComposer
 class VCMain2: UIViewController {
     
     var bt: UIButton = {
-        let settings: CustomButton.Settings = .pushVCChild2
+        let settings: CustomButton.Settings = .pushChild2ScreenFromMain
         let bt = UIButton()
         bt.setTitle(settings.title(), for: .normal)
         bt.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +33,7 @@ class VCMain2: UIViewController {
 
 extension VCMain2 {
     @objc func btTapped(sender: UIButton) {
-        try? DefaultRouter().navigate(to: ConfigurationHolder.configuration.child2Screen, with: nil)
+        try? DefaultRouter().navigate(to: ConfigurationHolder.configuration.pushChild2ScreenFromMain, with: nil)
     }
 }
 

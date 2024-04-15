@@ -11,14 +11,17 @@ protocol ScreenConfiguration {
     
     var tabBarScreen: DestinationStep<TabBarController, Any?> { get }
     
-    var mainScreen: DestinationStep<VCMain1, Any?> { get }
+    var openTabMainScreen: DestinationStep<VCMain1, Any?> { get }
     
-    var child1Screen: DestinationStep<VCChild1, Any?> { get }
+    var pushChild1ScreenFromMain: DestinationStep<VCChild1, Any?> { get }
     
-    var child2Screen: DestinationStep<VCChild2, Any?> { get }
+    var pushChild2ScreenFromMain: DestinationStep<VCChild2, Any?> { get }
     
-    var child1ScreenModal: DestinationStep<VCChild1, Any?> { get }
+    var modalChild1ScreenMain: DestinationStep<VCChild1, Any?> { get }
     
+    var pushVCChild1FromCurrent: DestinationStep<VCChild1, Any?> { get }
+    
+    var pushVCChild2FromCurrent: DestinationStep<VCChild2, Any?> { get }
 }
 
 extension ScreenConfiguration {
@@ -37,40 +40,58 @@ extension ScreenConfiguration {
         .assemble()
     }
     
-    var mainScreen: DestinationStep<VCMain1, Any?> {
-        StepAssembly(finder: ClassFinder(options: .fullStack), factory: ClassFactory())
+    var openTabMainScreen: DestinationStep<VCMain1, Any?> {
+        StepAssembly(finder: ClassFinder(options: .fullStack), factory: ClassFactory()) // .fullStack - открывает таб с любого запушеного, запрезентеного чайлда
             .using(GeneralAction.replaceRoot())
             .from(tabBarScreen)
             .assemble()
     }
     
-    var secondScreen: DestinationStep<VCMain2, Any?> {
-        StepAssembly(finder: ClassFinder(options: .currentAllStack), factory: ClassFactory())
+    var openTabSecondScreen: DestinationStep<VCMain2, Any?> {
+        StepAssembly(finder: ClassFinder(options: .currentAllStack), factory: ClassFactory()) // .currentAllStack - открывает таб не из любого чайлад
             .using(GeneralAction.replaceRoot())
             .from(tabBarScreen)
             .assemble()
     }
     
-    var child1Screen: DestinationStep<VCChild1, Any?> {
+    var pushChild1ScreenFromMain: DestinationStep<VCChild1, Any?> {
         StepAssembly(finder: ClassFinder<VCChild1, Any?>(),
                      factory: ClassFactory())
         .using(UINavigationController.push())
-        .assemble(from: mainScreen.expectingContainer())
+        .assemble(from: openTabMainScreen.expectingContainer())
     }
     
-    var child2Screen: DestinationStep<VCChild2, Any?> {
+    var pushChild2ScreenFromMain: DestinationStep<VCChild2, Any?> {
         StepAssembly(finder: ClassFinder<VCChild2, Any?>(),
                      factory: ClassFactory())
         .using(UINavigationController.push())
-        .from(mainScreen.expectingContainer())
+        .from(openTabMainScreen.expectingContainer())
         .assemble()
     }
     
-    var child1ScreenModal: DestinationStep<VCChild1, Any?> {
+    var modalChild1ScreenMain: DestinationStep<VCChild1, Any?> {
         StepAssembly(finder: ClassFinder<VCChild1, Any?>(),
                      factory: ClassFactory())
+        .using(UINavigationController.push())
+        .from(NavigationControllerStep())
         .using(GeneralAction.presentModally())
-        .assemble(from: mainScreen)
+        .assemble(from: openTabMainScreen)
+    }
+
+    var pushVCChild1FromCurrent: DestinationStep<VCChild1, Any?> {
+        StepAssembly(finder: ClassFinder<VCChild1, Any?>(),
+                     factory: ClassFactory())
+        .using(UINavigationController.push())
+        .from(GeneralStep.custom(using: ClassFinder<UINavigationController, Any?>(options: .currentAllStack)))
+        .assemble()
+    }
+    
+    var pushVCChild2FromCurrent: DestinationStep<VCChild2, Any?> {
+        StepAssembly(finder: ClassFinder<VCChild2, Any?>(),
+                     factory: ClassFactory())
+        .using(UINavigationController.push())
+        .from(GeneralStep.custom(using: ClassFinder<UINavigationController, Any?>(options: .currentAllStack)))
+        .assemble()
     }
 
 }

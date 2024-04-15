@@ -11,11 +11,13 @@ import RouteComposer
 class VCChild2: UIViewController {
     
     let buttons: [CustomButton] = [
-        .init(settings: .openVCMain1),
-        .init(settings: .openVCMain2),
-        .init(settings: .pushVCChild1),
-        .init(settings: .pushVCChild2),
-        .init(settings: .presentVCChild1)
+        .init(settings: .openTabMainScreen),
+        .init(settings: .openTabSecondScreen),
+        .init(settings: .pushChild1ScreenFromMain),
+        .init(settings: .pushChild2ScreenFromMain),
+        .init(settings: .modalChild1ScreenMain),
+        .init(settings: .pushVCChild1FromCurrent),
+        .init(settings: .pushVCChild2FromCurrent),
     ]
     
     override func viewDidLoad() {

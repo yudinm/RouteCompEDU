@@ -10,27 +10,33 @@ import RouteComposer
 
 class CustomButton: UIButton {
     enum Settings: Int {
-        case openVCMain1
-        case openVCMain2
-        case pushVCChild1
-        case pushVCChild2
-        case presentVCChild1
+        case openTabMainScreen
+        case openTabSecondScreen
+        case pushChild1ScreenFromMain
+        case pushChild2ScreenFromMain
+        case modalChild1ScreenMain
         case dismiss
+        case pushVCChild1FromCurrent
+        case pushVCChild2FromCurrent
         
         func title() -> String {
             switch self {
-            case .openVCMain1:
-                return "openVCMain1"
-            case .openVCMain2:
-                return "openVCMain2"
-            case .pushVCChild1:
-                return "pushVCChild1"
-            case .pushVCChild2:
-                return "pushVCChild2"
-            case .presentVCChild1:
-                return "presentVCChild1"
+            case .openTabMainScreen:
+                return "openTabMainScreen"
+            case .openTabSecondScreen:
+                return "openTabSecondScreen"
+            case .pushChild1ScreenFromMain:
+                return "pushChild1ScreenFromMain"
+            case .pushChild2ScreenFromMain:
+                return "pushChild2ScreenFromMain"
+            case .modalChild1ScreenMain:
+                return "modalChild1ScreenMain"
             case .dismiss:
                 return "Dismiss"
+            case .pushVCChild1FromCurrent:
+                return "pushVCChild1FromCurrent"
+            case .pushVCChild2FromCurrent:
+                return "pushVCChild2FromCurrent"
             }
         }
     }
@@ -56,18 +62,22 @@ class CustomButton: UIButton {
         let router = DefaultRouter()
         let config = ConfigurationHolder.configuration
         switch settings {
-        case .openVCMain1:
-            try? router.navigate(to: config.mainScreen, with: nil)
-        case .openVCMain2:
-            try? router.navigate(to: config.secondScreen, with: nil)
-        case .pushVCChild1:
-            try? router.navigate(to: config.child1Screen, with: nil)
-        case .pushVCChild2:
-            try? router.navigate(to: config.child2Screen, with: nil)
-        case .presentVCChild1:
-            try? router.navigate(to: config.child1ScreenModal, with: nil)
+        case .openTabMainScreen:
+            try? router.navigate(to: config.openTabMainScreen, with: nil)
+        case .openTabSecondScreen:
+            try? router.navigate(to: config.openTabSecondScreen, with: nil)
+        case .pushChild1ScreenFromMain:
+            try? router.navigate(to: config.pushChild1ScreenFromMain, with: nil)
+        case .pushChild2ScreenFromMain:
+            try? router.navigate(to: config.pushChild2ScreenFromMain, with: nil)
+        case .modalChild1ScreenMain:
+            try? router.navigate(to: config.modalChild1ScreenMain, with: nil)
         case .dismiss:
             break
+        case .pushVCChild1FromCurrent:
+            try? router.navigate(to: config.pushVCChild1FromCurrent, with: nil)
+        case .pushVCChild2FromCurrent:
+            try? router.navigate(to: config.pushVCChild2FromCurrent, with: nil)
         }
         sender.onTap?(sender)
     }
