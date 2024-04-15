@@ -26,6 +26,8 @@ protocol ScreenConfiguration {
     var modalChild1ScreenFromCurrentWithNavigationController: DestinationStep<VCChild1, Any?> { get }
     
     var modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2: DestinationStep<VCChild2, Any?> { get }
+    
+    var pushVCChild1FromCurrentInfinity: DestinationStep<VCChild1, Any?> { get }
 }
 
 extension ScreenConfiguration {
@@ -133,6 +135,13 @@ extension ScreenConfiguration {
     }
  */
     
+    var pushVCChild1FromCurrentInfinity: DestinationStep<VCChild1, Any?> {
+        StepAssembly(finder: NilFinder(), // Убрали finder VCChild1 и пушим всегда в новый vc.
+                     factory: ClassFactory())
+        .using(UINavigationController.push())
+        .from(GeneralStep.custom(using: ClassFinder<UINavigationController, Any?>(options: .currentAllStack)))
+        .assemble()
+    }
 }
 
 struct MainConfiguration: ScreenConfiguration {

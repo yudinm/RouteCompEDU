@@ -20,6 +20,7 @@ class CustomButton: UIButton {
         case pushVCChild2FromCurrent
         case modalChild1ScreenFromCurrentWithNavigationController
         case modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2
+        case pushVCChild1FromCurrentInfinity
         
         func title() -> String {
             switch self {
@@ -43,6 +44,8 @@ class CustomButton: UIButton {
                 return "modalChild1Screen From Current With NavigationController"
             case .modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2:
                 return "modalChild1Screen From Current With NavigationController Then PushChild2"
+            case .pushVCChild1FromCurrentInfinity:
+                return "pushVCChild1FromCurrentInfinity"
             }
         }
     }
@@ -89,6 +92,8 @@ class CustomButton: UIButton {
             try? router.navigate(to: config.modalChild1ScreenFromCurrentWithNavigationController, with: nil)
         case .modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2:
             try? router.navigate(to: config.modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2, with: nil)
+        case .pushVCChild1FromCurrentInfinity:
+            try? router.navigate(to: config.pushVCChild1FromCurrentInfinity, with: nil)
         }
         sender.onTap?(sender)
     }

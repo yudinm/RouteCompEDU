@@ -20,6 +20,7 @@ class VCMain1: UIViewController {
         .init(settings: .pushVCChild2FromCurrent),
         .init(settings: .modalChild1ScreenFromCurrentWithNavigationController),
         .init(settings: .modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2),
+        .init(settings: .pushVCChild1FromCurrentInfinity),
     ]
     
     override func viewDidLoad() {

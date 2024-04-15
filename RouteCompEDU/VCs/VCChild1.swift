@@ -21,6 +21,7 @@ class VCChild1: UIViewController {
         .init(settings: .dismiss),
         .init(settings: .pushVCChild1FromCurrent),
         .init(settings: .pushVCChild2FromCurrent),
+        .init(settings: .pushVCChild1FromCurrentInfinity),
     ]
     
     override func viewDidLoad() {
