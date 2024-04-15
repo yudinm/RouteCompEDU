@@ -101,12 +101,23 @@ extension ScreenConfiguration {
     var modalChild1ScreenFromCurrentWithNavigationController: DestinationStep<VCChild1, Any?> {
         StepAssembly(finder: ClassFinder<VCChild1, Any?>(),
                      factory: ClassFactory())
-        .using(UINavigationController.push())
-        .from(NavigationControllerStep())
-        .using(GeneralAction.presentModally())
-        .assemble(from: GeneralStep.current())
+        .using(UINavigationController.pushAsRoot())  // 4) Запушить VCChild1 как rootVC дл NC
+        .from(NavigationControllerStep())            // 3) Отобразить из  UINavigationController (т.е. будет презент модального VCChild1 обернутого в UINavigationController)
+        .using(GeneralAction.presentModally()) // 2) Отобразить модально (VCChild1 - описано выше)
+            // Описываем родительский экран
+        .assemble(from: GeneralStep.current()) // 1) Собрать степ начиная с текущего степа
     }
     
+    var modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2: DestinationStep<VCChild2, Any?> {
+        StepAssembly(finder: ClassFinder<VCChild2, Any?>(),
+                     factory: ClassFactory()) // 7) Найти VCChild2 в стеке или создать его фабрикой
+        .using(UINavigationController.push()) // 6) Запушить VCChild2 в UINavigationController (в данном случае поверх VCChild1)
+        .from(
+            modalChild1ScreenFromCurrentWithNavigationController.expectingContainer()
+        ) // 5) Поискать VCChild1 в стеке, запушить в его
+        .assemble()
+    }
+/*
     var modalChild1ScreenFromCurrentWithNavigationControllerThenPushChild2: DestinationStep<VCChild2, Any?> {
         StepAssembly(finder: ClassFinder<VCChild2, Any?>(),
                      factory: ClassFactory()) // 7) Найти VCChild2 в стеке или создать его фабрикой
@@ -120,6 +131,8 @@ extension ScreenConfiguration {
             // Описываем родительский экран
         .assemble(from: GeneralStep.current()) // 1) Собрать степ начиная с текущего степа
     }
+ */
+    
 }
 
 struct MainConfiguration: ScreenConfiguration {
