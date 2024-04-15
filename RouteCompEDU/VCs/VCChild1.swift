@@ -16,6 +16,7 @@ class VCChild1: UIViewController {
         .init(settings: .pushChild1ScreenFromMain),
         .init(settings: .pushChild2ScreenFromMain),
         .init(settings: .modalChild1ScreenMain),
+        .init(settings: .modalChild1ScreenFromCurrentWithNavigationController),
         .init(settings: .dismiss),
         .init(settings: .pushVCChild1FromCurrent),
         .init(settings: .pushVCChild2FromCurrent),

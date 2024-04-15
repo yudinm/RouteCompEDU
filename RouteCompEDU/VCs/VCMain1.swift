@@ -18,6 +18,7 @@ class VCMain1: UIViewController {
         .init(settings: .modalChild1ScreenMain),
         .init(settings: .pushVCChild1FromCurrent),
         .init(settings: .pushVCChild2FromCurrent),
+        .init(settings: .modalChild1ScreenFromCurrentWithNavigationController),
     ]
     
     override func viewDidLoad() {

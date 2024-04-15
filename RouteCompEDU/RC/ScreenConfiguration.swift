@@ -22,6 +22,8 @@ protocol ScreenConfiguration {
     var pushVCChild1FromCurrent: DestinationStep<VCChild1, Any?> { get }
     
     var pushVCChild2FromCurrent: DestinationStep<VCChild2, Any?> { get }
+    
+    var modalChild1ScreenFromCurrentWithNavigationController: DestinationStep<VCChild1, Any?> { get }
 }
 
 extension ScreenConfiguration {
@@ -48,7 +50,7 @@ extension ScreenConfiguration {
     }
     
     var openTabSecondScreen: DestinationStep<VCMain2, Any?> {
-        StepAssembly(finder: ClassFinder(options: .currentAllStack), factory: ClassFactory()) // .currentAllStack - открывает таб не из любого чайлад
+        StepAssembly(finder: ClassFinder(options: .currentAllStack), factory: ClassFactory()) // .currentAllStack - открывает таб не из любого чайлад (Можно посмотреть на ошибку при попытке переключиться на этот таб с модки)
             .using(GeneralAction.replaceRoot())
             .from(tabBarScreen)
             .assemble()
@@ -58,7 +60,7 @@ extension ScreenConfiguration {
         StepAssembly(finder: ClassFinder<VCChild1, Any?>(),
                      factory: ClassFactory())
         .using(UINavigationController.push())
-        .assemble(from: openTabMainScreen.expectingContainer())
+        .assemble(from: openTabMainScreen.expectingContainer()) // Переключает на тот таб, где запушен VCChild1. Пример: ->openTabSecondScreen->pushVCChild1FromCurrent->openTabMainScreen->pushChild1ScreenFromMain
     }
     
     var pushChild2ScreenFromMain: DestinationStep<VCChild2, Any?> {
@@ -72,8 +74,8 @@ extension ScreenConfiguration {
     var modalChild1ScreenMain: DestinationStep<VCChild1, Any?> {
         StepAssembly(finder: ClassFinder<VCChild1, Any?>(),
                      factory: ClassFactory())
-        .using(UINavigationController.push())
-        .from(NavigationControllerStep())
+//        .using(UINavigationController.push()) // Модалка без навкон. 
+//        .from(NavigationControllerStep())
         .using(GeneralAction.presentModally())
         .assemble(from: openTabMainScreen)
     }
@@ -93,7 +95,15 @@ extension ScreenConfiguration {
         .from(GeneralStep.custom(using: ClassFinder<UINavigationController, Any?>(options: .currentAllStack)))
         .assemble()
     }
-
+    
+    var modalChild1ScreenFromCurrentWithNavigationController: DestinationStep<VCChild1, Any?> {
+        StepAssembly(finder: ClassFinder<VCChild1, Any?>(),
+                     factory: ClassFactory())
+        .using(UINavigationController.push())
+        .from(NavigationControllerStep())
+        .using(GeneralAction.presentModally())
+        .assemble(from: openTabMainScreen)
+    }
 }
 
 struct MainConfiguration: ScreenConfiguration {

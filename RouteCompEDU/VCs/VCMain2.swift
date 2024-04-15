@@ -10,40 +10,46 @@ import RouteComposer
 
 class VCMain2: UIViewController {
     
-    var bt: UIButton = {
-        let settings: CustomButton.Settings = .pushChild2ScreenFromMain
-        let bt = UIButton()
-        bt.setTitle(settings.title(), for: .normal)
-        bt.translatesAutoresizingMaskIntoConstraints = false
-        bt.backgroundColor = .gray
-        bt.tag = settings.rawValue
-
-        return bt
-    }()
+    let buttons: [CustomButton] = [
+        .init(settings: .openTabMainScreen),
+        .init(settings: .openTabSecondScreen),
+        .init(settings: .pushChild1ScreenFromMain),
+        .init(settings: .pushChild2ScreenFromMain),
+        .init(settings: .modalChild1ScreenMain),
+        .init(settings: .pushVCChild1FromCurrent),
+        .init(settings: .pushVCChild2FromCurrent),
+        .init(settings: .modalChild1ScreenFromCurrentWithNavigationController),
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red.withAlphaComponent(0.2)
         title = "vc-second"
-        
+
         configureButtons()
     }
     
 }
 
 extension VCMain2 {
-    @objc func btTapped(sender: UIButton) {
-        try? DefaultRouter().navigate(to: ConfigurationHolder.configuration.pushChild2ScreenFromMain, with: nil)
-    }
-}
-
-extension VCMain2 {
     func configureButtons() {
-        view.addSubview(bt)
-        NSLayoutConstraint.activate([
-            bt.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            bt.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-        bt.addTarget(self, action: #selector(btTapped), for: .touchUpInside)
+        var lastButton: CustomButton? = nil
+        buttons.forEach { button in
+            view.addSubview(button)
+            if (lastButton == nil) {
+                NSLayoutConstraint.activate([
+                    button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+                ])
+            } else {
+                NSLayoutConstraint.activate([
+                    button.topAnchor.constraint(equalTo: lastButton!.bottomAnchor, constant: 8)
+                ])
+            }
+            NSLayoutConstraint.activate([
+                button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            ])
+            button.addTarget(CustomButton.self, action: #selector(CustomButton.btTapped), for: .touchUpInside)
+            lastButton = button
+        }
     }
 }
